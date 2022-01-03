@@ -1,3 +1,4 @@
+import 'package:appdulich/detailuser.dart';
 import 'package:flutter/material.dart';
 
 class Userpage extends StatefulWidget {
@@ -12,6 +13,7 @@ class UserState extends State<Userpage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     // TODO: implement build
     return Scaffold(
         body: Center(
@@ -31,6 +33,7 @@ class UserState extends State<Userpage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
+                  padding: EdgeInsets.all(5),
                   height: 130,
                   width: 130,
                   child: CircleAvatar(
@@ -47,14 +50,20 @@ class UserState extends State<Userpage> {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => detailuser(),
+                      ));
+                },
                 child: Text(
                   'thông tin người dùng >',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(15),
                 child: MaterialButton(
                   color: Colors.black54,
                   onPressed: () {},
@@ -82,7 +91,7 @@ class UserState extends State<Userpage> {
                             subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('đẹp vãi lồn luôn'),
+                                  Text('đẹp vãi luôn'),
                                   Container(
                                       height: size.height * 0.35,
                                       padding: EdgeInsets.all(10),
@@ -93,21 +102,44 @@ class UserState extends State<Userpage> {
                       ),
                       Card(
                         child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: AssetImage('images/avatar.jpg'),
-                            ),
-                            title: Text('Xiếc trung Tâm'),
-                            subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('đẹp vãi lồn luôn'),
-                                  Container(
-                                      height: size.height * 0.35,
-                                      padding: EdgeInsets.all(10),
-                                      child: Image(
-                                        image: AssetImage('images/avatar.jpg'),
-                                      ))
-                                ])),
+                          leading: CircleAvatar(
+                            backgroundImage: AssetImage('images/avatar.jpg'),
+                          ),
+                          title: Text('Xiếc trung Tâm'),
+                          subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('đẹp vãi luôn'),
+                                Container(
+                                    height: size.height * 0.35,
+                                    padding: EdgeInsets.all(10),
+                                    child: Image(
+                                      image: AssetImage('images/avatar.jpg'),
+                                    )),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: Icon(
+                                        Icons.thumb_up,
+                                        color: Colors.orange,
+                                      ),
+                                    ),
+                                    Text('0'),
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: Icon(
+                                        Icons.thumb_down,
+                                        color: Colors.orange,
+                                      ),
+                                    ),
+                                    Text('0'),
+                                  ],
+                                )
+                              ]),
+                          onTap: () {},
+                        ),
                       )
                     ],
                   ))

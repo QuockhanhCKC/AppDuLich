@@ -29,13 +29,13 @@ class MyHomeState extends State<MyHomePage> {
             child: PageView(
           controller: page,
           children: [
-            Userpage(),
             Text(
               'bài viết',
             ),
             Text(
               'Địa danh',
             ),
+            Userpage(),
           ],
         )),
         bottomNavigationBar: BottomNavigationBar(
