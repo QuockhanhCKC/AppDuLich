@@ -50,7 +50,7 @@ class MyHomeState extends State<MyHomePage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: 'cá nhân',
+              label: 'Tài Khoản',
             ),
           ],
           currentIndex: _selectedIndex,

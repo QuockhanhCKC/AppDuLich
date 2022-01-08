@@ -1,4 +1,5 @@
 import 'package:appdulich/home.dart';
+import 'package:appdulich/restaurant_hotel.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,7 +8,7 @@ void main() {
     theme: ThemeData(scaffoldBackgroundColor: Colors.grey[200]),
     initialRoute: 'home',
     routes: {
-      'home': (context) => MyHomePage(),
+      'home': (context) => retaurantPage(),
       //'login': (context) => LoginPage(),
     },
   ));

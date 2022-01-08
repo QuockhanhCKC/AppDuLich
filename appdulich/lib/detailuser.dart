@@ -20,7 +20,7 @@ class detailuserstate extends State<detailuser> {
         backgroundColor: Colors.orange,
         title: Text('Thông tin cá Nhân'),
       ),
-      body: Center(
+      body: Container(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -68,8 +68,8 @@ class detailuserstate extends State<detailuser> {
                         child: OutlinedButton(
                           onPressed: () {},
                           style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.black87,
-                              side: BorderSide(width: size.width * 0.3)),
+                            backgroundColor: Colors.black87,
+                          ),
                           child: Text(
                             'cập nhật',
                             style: TextStyle(color: Colors.white),
@@ -80,10 +80,8 @@ class detailuserstate extends State<detailuser> {
                         padding: EdgeInsets.all(10),
                         child: OutlinedButton(
                           onPressed: () {},
-                          style: OutlinedButton.styleFrom(
-                              side: BorderSide(width: size.width * 0.3)),
                           child: Text(
-                            'Đăng xuất',
+                            'Đăng xuất >',
                             style: TextStyle(color: Colors.black87),
                           ),
                         ),
