@@ -1,3 +1,4 @@
+import 'package:appdulich/restaurant_hotel.dart';
 import 'package:appdulich/userPage.dart';
 import 'package:flutter/material.dart';
 
@@ -29,9 +30,7 @@ class MyHomeState extends State<MyHomePage> {
             child: PageView(
           controller: page,
           children: [
-            Text(
-              'bài viết',
-            ),
+            retaurantPage(),
             Text(
               'Địa danh',
             ),

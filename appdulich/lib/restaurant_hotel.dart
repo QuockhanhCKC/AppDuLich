@@ -32,12 +32,14 @@ class retaurantState extends State<retaurantPage> {
                 child: ImageSlideshow(height: 270, children: [
                   ClipRRect(
                       child: Image(
-                    image: AssetImage('images/capdead.jpg'),
+                    image: AssetImage(
+                        'images/foody-album133-jpg-939-635941512115818241.jpg'),
                     fit: BoxFit.cover,
                   )),
                   ClipRRect(
                       child: Image(
-                    image: AssetImage('images/avatar.jpg'),
+                    image: AssetImage(
+                        'images/foody-mobile-lang-nuong-63-cao-thang.jpg'),
                     fit: BoxFit.cover,
                   )),
                 ]),
@@ -79,7 +81,7 @@ class retaurantState extends State<retaurantPage> {
                             children: [
                               ListTile(
                                 title: Text(
-                                  'Nhà Hàng Hải Sản 1',
+                                  'Nhà Hàng Hải Sản 63 Cao Thắng',
                                   style: TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold),
@@ -137,18 +139,10 @@ class retaurantState extends State<retaurantPage> {
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds'),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds'),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds'),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds'),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds'),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds'),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds'),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds'),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds'),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds'),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds'),
-                                Text('anashdahdadksdhasdjkadagjdajdsadsds')
+                                Text('Đang mở cửa  10:00 - 23:55'),
+                                Text(
+                                    'Nhà hàng có diện tích rất rộng với không gian mở, kiến trúc sang trọng, lịch sự. Ngoài các bàn trong đại sảnh thì bạn có thể lựa chọn ngồi bàn ngoài sân cho thoáng mát hay thích sự riêng tư, yên tĩnh thì bạn hãy chọn phòng VIP được thiết kế khá đẹp, theo hướng cổ điển. Thực đơn của 63 Cao Thắng có nhiều món đặc sản Việt được đầu bếp giàu kinh nghiệm chế biến như: cá tầm nướng muối ớt, mực nướng sa tế, lẩu riêu cua bắp bò,…'),
+                                Text('100.000đ - 330.000đ'),
                               ],
                             ),
                           ))),

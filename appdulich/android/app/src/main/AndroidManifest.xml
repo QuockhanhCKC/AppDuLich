@@ -3,6 +3,8 @@
    <application
         android:label="appdulich"
         android:icon="@mipmap/ic_launcher">
+    <meta-data android:name="com.here.sdk.access_key_id" android:value="quJR1RHI4Y3ml8H_6MFVbQ"/>
+    <meta-data android:name="com.here.sdk.access_key_secret" android:value="gJRDXVWMdlLC3uDv6U82FzJ1eIvCoF6XDpgcSr1YI-_CCbEQM9zyaNUm0yTOqeTuMVltzifaGWS2UURv1vbXLw"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
