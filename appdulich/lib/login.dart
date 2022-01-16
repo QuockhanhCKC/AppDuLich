@@ -1,3 +1,4 @@
+import 'package:appdulich/home.dart';
 import 'package:appdulich/registered.dart';
 import 'package:appdulich/restaurant_hotel.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class LoginState extends State<LoginPage> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width * 0.1),
+                  bottom: MediaQuery.of(context).size.width * 0.2),
               child: Image(
                 image: AssetImage('images/nui_ba_den.jpg'),
                 fit: BoxFit.cover,
@@ -72,7 +73,8 @@ class LoginState extends State<LoginPage> {
                           width: MediaQuery.of(context).size.width,
                           child: MaterialButton(
                             color: Colors.black,
-                            onPressed: () {},
+                            onPressed: () =>
+                                Navigator.pushNamed(context, 'home'),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
                             child: Text(
@@ -84,6 +86,7 @@ class LoginState extends State<LoginPage> {
                         ),
                       ],
                     ),
+                    
                     Align(
                         alignment: Alignment.bottomRight,
                         child: TextButton(

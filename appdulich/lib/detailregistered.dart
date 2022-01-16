@@ -18,7 +18,7 @@ class detailregisteredState extends State<DetailRegisteredPage> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width * 0.1),
+                  bottom: MediaQuery.of(context).size.width * 0.2),
               child: Image(
                 image: AssetImage('images/nui_ba_den.jpg'),
                 fit: BoxFit.cover,

@@ -17,6 +17,7 @@ class UserState extends State<Userpage> {
     // TODO: implement build
     return Scaffold(
       body: ListView(
+        shrinkWrap: true,
         children: [
           Stack(
             children: <Widget>[
@@ -26,8 +27,8 @@ class UserState extends State<Userpage> {
                 decoration: BoxDecoration(
                     color: Colors.amber[800],
                     borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40),
+                      bottomLeft: Radius.circular(100),
+                      bottomRight: Radius.circular(100),
                     )),
               ),
               Column(
@@ -40,6 +41,9 @@ class UserState extends State<Userpage> {
                         children: <Widget>[
                           Container(
                               padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(100)),
                               height: 130,
                               width: 130,
                               child: CircleAvatar(
@@ -68,85 +72,58 @@ class UserState extends State<Userpage> {
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.all(15),
-                            child: MaterialButton(
-                              color: Colors.black54,
-                              onPressed: () {},
-                              child: Text(
-                                'thông tin người dùng',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              minWidth: size.width,
-                            ),
+                          SizedBox(
+                            height: 20,
                           ),
-                          Card(
-                            child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/avatar.jpg'),
+                          SizedBox(
+                            child: GridView.count(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              children: [
+                                GestureDetector(
+                                  child: Image(
+                                    height: 200,
+                                    image: AssetImage('images/avatar.jpg'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  onTap: () {},
                                 ),
-                                title: Text('Xiếc trung Tâm'),
-                                subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('đẹp vãi luôn'),
-                                      Container(
-                                          height: size.height * 0.35,
-                                          padding: EdgeInsets.all(10),
-                                          child: Image(
-                                            image:
-                                                AssetImage('images/avatar.jpg'),
-                                            fit: BoxFit.cover,
-                                          ))
-                                    ])),
-                          ),
-                          Card(
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('images/avatar.jpg'),
-                              ),
-                              title: Text('Xiếc trung Tâm'),
-                              subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('đẹp vãi luôn'),
-                                    Container(
-                                        height: size.height * 0.35,
-                                        padding: EdgeInsets.all(10),
-                                        child: Image(
-                                          image:
-                                              AssetImage('images/avatar.jpg'),
-                                          fit: BoxFit.cover,
-                                        )),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        TextButton(
-                                          onPressed: () {},
-                                          child: Icon(
-                                            Icons.thumb_up,
-                                            color: Colors.orange,
-                                          ),
-                                        ),
-                                        Text('0'),
-                                        TextButton(
-                                          onPressed: () {},
-                                          child: Icon(
-                                            Icons.thumb_down,
-                                            color: Colors.orange,
-                                          ),
-                                        ),
-                                        Text('0'),
-                                      ],
-                                    )
-                                  ]),
-                              onTap: () {},
+                                GestureDetector(
+                                  child: Image(
+                                    height: 200,
+                                    image: AssetImage('images/avatar.jpg'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  onTap: () {},
+                                ),
+                                GestureDetector(
+                                  child: Image(
+                                    height: 200,
+                                    image: AssetImage('images/avatar.jpg'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  onTap: () {},
+                                ),
+                                GestureDetector(
+                                  child: Image(
+                                    height: 200,
+                                    image: AssetImage('images/avatar.jpg'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  onTap: () {},
+                                ),
+                                GestureDetector(
+                                  child: Image(
+                                    height: 200,
+                                    image: AssetImage('images/avatar.jpg'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  onTap: () {},
+                                ),
+                              ],
                             ),
                           )
                         ],

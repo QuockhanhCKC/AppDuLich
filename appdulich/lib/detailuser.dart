@@ -20,9 +20,7 @@ class detailuserstate extends State<detailuser> {
         backgroundColor: Colors.orange,
         title: Text('Thông tin cá Nhân'),
       ),
-      body: Container(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      body: ListView(
         children: [
           Stack(alignment: Alignment.bottomCenter, children: [
             Container(
@@ -91,7 +89,7 @@ class detailuserstate extends State<detailuser> {
                 ],
               ))
         ],
-      )),
+      ),
     );
   }
 }

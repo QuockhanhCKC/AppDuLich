@@ -1,4 +1,7 @@
+import 'package:appdulich/Sites.dart';
+import 'package:appdulich/post.dart';
 import 'package:appdulich/restaurant_hotel.dart';
+import 'package:appdulich/share.dart';
 import 'package:appdulich/userPage.dart';
 import 'package:flutter/material.dart';
 
@@ -14,53 +17,105 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomeState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  PageController page = PageController();
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    page.jumpToPage(index);
-  }
-
+  final List<Widget> screens = [
+    PostPage(),
+    SitesPage(),
+    SharePage(),
+    Userpage()
+  ];
+  final List<IconData> icons = [
+    Icons.home,
+    Icons.room,
+    Icons.favorite,
+    Icons.person
+  ];
+  final PageStorageBucket bucket = PageStorageBucket();
+  Widget currentScreen = PostPage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: PageView(
-          controller: page,
-          children: [
-            retaurantPage(),
-            Text(
-              'Địa danh',
-            ),
-            Userpage(),
-          ],
-        )),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Bài Viết',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.room),
-              label: 'Địa Danh',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Tài Khoản',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
-          onTap: _onItemTapped,
+        body: PageStorage(
+          child: currentScreen,
+          bucket: bucket,
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.orange,
-          tooltip: 'Đăng Bài',
-          child: const Icon(Icons.add),
+        floatingActionButton: Container(
+          height: 80.0,
+          width: 80.0,
+          child: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: Colors.amber[800],
+            child: Icon(Icons.camera_alt_outlined),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          notchMargin: 20,
+          child: Container(
+              height: 60,
+              color: Colors.white,
+              child: Row(
+                  //children inside bottom appbar
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = screens[0];
+
+                          _selectedIndex = 0;
+                        });
+                      },
+                      icon: Icon(icons[0],
+                          size: _selectedIndex == 0 ? 45 : 40,
+                          color: _selectedIndex == 0
+                              ? Colors.orange
+                              : Colors.grey),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = screens[1];
+
+                          _selectedIndex = 1;
+                        });
+                      },
+                      icon: Icon(icons[1],
+                          size: _selectedIndex == 1 ? 45 : 40,
+                          color: _selectedIndex == 1
+                              ? Colors.orange
+                              : Colors.grey),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = screens[2];
+
+                          _selectedIndex = 2;
+                        });
+                      },
+                      icon: Icon(icons[2],
+                          size: _selectedIndex == 2 ? 45 : 40,
+                          color: _selectedIndex == 2
+                              ? Colors.orange
+                              : Colors.grey),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = screens[3];
+
+                          _selectedIndex = 3;
+                        });
+                      },
+                      icon: Icon(icons[3],
+                          size: _selectedIndex == 3 ? 45 : 40,
+                          color: _selectedIndex == 3
+                              ? Colors.orange
+                              : Colors.grey),
+                    )
+                  ])),
         ));
   }
 }
