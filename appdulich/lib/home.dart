@@ -1,36 +1,47 @@
+import 'package:appdulich/Create_post.dart';
 import 'package:appdulich/Sites.dart';
 import 'package:appdulich/post.dart';
-import 'package:appdulich/restaurant_hotel.dart';
+
 import 'package:appdulich/share.dart';
 import 'package:appdulich/userPage.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  final int? id;
+  const MyHomePage({Key? key, required this.id}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return MyHomeState();
+    return MyHomeState(id: id);
   }
 }
 
 class MyHomeState extends State<MyHomePage> {
+  final int? id;
+  MyHomeState({required this.id});
+  late List<Widget> screens;
   int _selectedIndex = 0;
-  final List<Widget> screens = [
-    PostPage(),
-    SitesPage(),
-    SharePage(),
-    Userpage()
-  ];
+  void initState() {
+    super.initState();
+    screens = <Widget>[
+      SitesPage(),
+      PostPage(),
+      SharePage(),
+      Userpage(
+        id: id,
+      )
+    ];
+  }
+
   final List<IconData> icons = [
     Icons.home,
-    Icons.room,
+    Icons.import_contacts,
     Icons.favorite,
     Icons.person
   ];
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = PostPage();
+  Widget currentScreen = SitesPage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +53,13 @@ class MyHomeState extends State<MyHomePage> {
           height: 80.0,
           width: 80.0,
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CreatePost(id:id),
+                  ));
+            },
             backgroundColor: Colors.amber[800],
             child: Icon(Icons.camera_alt_outlined),
           ),
@@ -54,6 +71,7 @@ class MyHomeState extends State<MyHomePage> {
           child: Container(
               height: 60,
               color: Colors.white,
+              padding: EdgeInsets.all(10),
               child: Row(
                   //children inside bottom appbar
                   mainAxisSize: MainAxisSize.max,

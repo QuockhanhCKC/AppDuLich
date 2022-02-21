@@ -1,4 +1,5 @@
 import 'package:appdulich/login.dart';
+import 'package:appdulich/registered.dart';
 import 'package:appdulich/restaurant_hotel.dart';
 import 'package:flutter/material.dart';
 import '';
@@ -23,7 +24,6 @@ class WellcomeState extends State<WellcomePage> {
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            color: Colors.orange,
             child: Image(
               image: AssetImage('images/nui_ba_den.jpg'),
               fit: BoxFit.cover,
@@ -35,7 +35,7 @@ class WellcomeState extends State<WellcomePage> {
               Container(
                 padding: EdgeInsets.all(15),
                 child: Text(
-                  'Wellcome',
+                  'Welcome',
                   style: TextStyle(fontSize: 39, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -58,7 +58,10 @@ class WellcomeState extends State<WellcomePage> {
                     'Đăng Nhập',
                     style: TextStyle(fontSize: 20),
                   ),
-                  style: OutlinedButton.styleFrom(),
+                  style: OutlinedButton.styleFrom(
+                      backgroundColor: Colors.white24,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15))),
                 ),
               ),
               Container(
@@ -70,7 +73,7 @@ class WellcomeState extends State<WellcomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => retaurantPage(),
+                          builder: (context) => RegisteredPage(),
                         ));
                   },
                   shape: RoundedRectangleBorder(

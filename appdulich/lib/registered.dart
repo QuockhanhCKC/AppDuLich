@@ -1,5 +1,12 @@
-import 'package:appdulich/detailregistered.dart';
+import 'dart:convert';
+
+import 'package:appdulich/API/User_object.dart';
+import 'package:appdulich/API/user_provider.dart';
+
+import 'package:appdulich/login.dart';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class RegisteredPage extends StatefulWidget {
   const RegisteredPage({Key? key}) : super(key: key);
@@ -9,6 +16,17 @@ class RegisteredPage extends StatefulWidget {
 }
 
 class registeredState extends State<RegisteredPage> {
+   final TextEditingController name = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final TextEditingController check = TextEditingController();
+  final Users us = Users();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +53,7 @@ class registeredState extends State<RegisteredPage> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        'Đăng kÝ',
+                        'Đăng Ký',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -43,12 +61,25 @@ class registeredState extends State<RegisteredPage> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Padding(padding: EdgeInsets.all(15)),
                         Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               color: Colors.white30,
                               borderRadius: BorderRadius.circular(30)),
                           child: TextField(
+                            controller: name,
+                            decoration: InputDecoration(
+                                border: InputBorder.none, labelText: 'Tên Người Dùng'),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              color: Colors.white30,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: TextField(
+                            controller: email,
                             decoration: InputDecoration(
                                 border: InputBorder.none, labelText: 'Mail'),
                           ),
@@ -60,6 +91,7 @@ class registeredState extends State<RegisteredPage> {
                               color: Colors.white30,
                               borderRadius: BorderRadius.circular(30)),
                           child: TextField(
+                            controller: password,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 labelText: 'Mật Khẩu'),
@@ -72,6 +104,7 @@ class registeredState extends State<RegisteredPage> {
                               color: Colors.white30,
                               borderRadius: BorderRadius.circular(30)),
                           child: TextField(
+                            controller: check,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 labelText: 'Nhập Lại Mật Khẩu'),
@@ -82,11 +115,40 @@ class registeredState extends State<RegisteredPage> {
                           width: MediaQuery.of(context).size.width,
                           child: MaterialButton(
                             color: Colors.black,
-                            onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DetailRegisteredPage(),
-                                )),
+                            onPressed: () async {
+                              if (password.text == check.text) {
+                                if (email.text == null ||
+                                    password.text == null) {
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      content: const Text(
+                                          'email hoặc mật khẩu trống'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: const Text('Cancel'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                } else {
+                                  await UserProvider.fetchuser_register(name.text,
+                                          email.text, password.text)
+                                      .then((value) {
+                                    setState(() {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => LoginPage(),
+                                          ));
+                                    });
+                                  });
+                                }
+                              }
+                            },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
                             child: Text(

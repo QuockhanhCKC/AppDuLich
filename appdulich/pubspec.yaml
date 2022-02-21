@@ -31,7 +31,11 @@ dependencies:
     sdk: flutter
   flutter_image_slideshow: ^0.1.2
   fluttericon: ^2.0.0
-
+  cached_network_image: ^3.2.0
+  http: ^0.13.4
+  dio: ^4.0.4
+  image_picker: ^0.8.4+9
+  modal_progress_hud_nsn: ^0.1.0-nullsafety-1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -63,10 +67,11 @@ flutter:
   assets:
     - images/nui_ba_den.jpg
     - images/avatar.jpg
+    - images/none.jpg
     - images/capdead.jpg
     - images/foody-album133-jpg-939-635941512115818241.jpg
     - images/foody-mobile-lang-nuong-63-cao-thang.jpg
-  #   - images/a_dot_ham.jpeg
+    - images/nui-ba-den-huyen-tich-ve-dinh-thieng-noi-noc-nha-nam-bo-2.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

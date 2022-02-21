@@ -1,3 +1,5 @@
+import 'package:appdulich/API/User_object.dart';
+import 'package:appdulich/API/user_provider.dart';
 import 'package:appdulich/home.dart';
 import 'package:appdulich/registered.dart';
 import 'package:appdulich/restaurant_hotel.dart';
@@ -11,6 +13,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginState extends State<LoginPage> {
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final TextEditingController check = TextEditingController();
+  final Users us = Users();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +63,7 @@ class LoginState extends State<LoginPage> {
                               color: Colors.white30,
                               borderRadius: BorderRadius.circular(30)),
                           child: TextField(
+                            controller: email,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 labelText: 'Tên Tài Khoản Hoặc Mail'),
@@ -63,6 +76,7 @@ class LoginState extends State<LoginPage> {
                               color: Colors.white30,
                               borderRadius: BorderRadius.circular(30)),
                           child: TextField(
+                            controller: password,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 labelText: 'Mật Khẩu'),
@@ -73,8 +87,40 @@ class LoginState extends State<LoginPage> {
                           width: MediaQuery.of(context).size.width,
                           child: MaterialButton(
                             color: Colors.black,
-                            onPressed: () =>
-                                Navigator.pushNamed(context, 'home'),
+                            onPressed: () async {
+                              if (email.text == null || password.text == null) {
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    content:
+                                        const Text('email hoặc mật khẩu trống'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text('Cancel'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                await UserProvider.fetchuser_login(
+                                        email.text, password.text)
+                                    .then((value) {
+                                  if (value != null)
+                                    setState(() {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => MyHomePage(
+                                                    id: value.id,
+                                                  ),
+                                              settings: RouteSettings(
+                                                  name: '/home')));
+                                    });
+                                });
+                              }
+                            },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
                             child: Text(
@@ -86,7 +132,6 @@ class LoginState extends State<LoginPage> {
                         ),
                       ],
                     ),
-                    
                     Align(
                         alignment: Alignment.bottomRight,
                         child: TextButton(
