@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::Where('statust','=',1)->orderBy('id', 'desc')->get();
+        return Post::Where('statust','=',1)->orderBy('created_at', 'desc')->get();
     }
   
     /**

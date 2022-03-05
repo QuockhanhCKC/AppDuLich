@@ -112,7 +112,7 @@ class _DetailpostPageState extends State<DetailpostPage> {
                                         children: [
                                           Expanded(
                                               child: Text(
-                                            sites.diachi.toString(),
+                                            sites.name.toString(),
                                             style:
                                                 TextStyle(color: Colors.grey),
                                           )),
@@ -204,45 +204,45 @@ class _DetailpostPageState extends State<DetailpostPage> {
                                 ),
                                 Expanded(
                                     child: ListView.builder(
-                                        itemCount: cm.length,
-                                        itemBuilder: (context, index) =>
-                                            Padding(
-                                                padding:
-                                                    EdgeInsets.only(left: 10),
-                                                child: FutureBuilder<Users>(
-                  future: UserProvider.fecthusersById(post.iduser),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Center(
-                        child: Text('Error'),
-                      );
-                    } else if (snapshot.hasData) {
-                      Users users = snapshot.data!;
-                      return ListTile(
-                        leading: ClipRRect(
-                            borderRadius: BorderRadius.circular(10000.0),
-                            child: CachedNetworkImage(
-                              imageUrl: '${users.avatar}',
-                              height: 30,
-                            )),
-                        title: Text(
-                          '${users.name}',
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
-                        ),
-                          subtitle: Text(cm[index].noidung.toString()),
-                                                  
-                                                
-                      );
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  },
-                ),
-                                                    
-                                                  ),
+                                  itemCount: cm.length,
+                                  itemBuilder: (context, index) => Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: FutureBuilder<Users>(
+                                      future: UserProvider.fecthusersById(
+                                          post.iduser),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasError) {
+                                          return Center(
+                                            child: Text('Error'),
+                                          );
+                                        } else if (snapshot.hasData) {
+                                          Users users = snapshot.data!;
+                                          return ListTile(
+                                            leading: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10000.0),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: '${users.avatar}',
+                                                  height: 30,
                                                 )),
+                                            title: Text(
+                                              '${users.name}',
+                                              style: TextStyle(
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            subtitle: Text(
+                                                cm[index].noidung.toString()),
+                                          );
+                                        }
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                )),
                               ],
                             ),
                           );

@@ -6,6 +6,8 @@ class Users {
   int? status;
   String? avatar;
   String? quyen;
+  String? phone;
+  String? old;
   String? createdAt;
   String? updatedAt;
 
@@ -16,6 +18,8 @@ class Users {
       this.password,
       this.status,
       this.avatar,
+      this.phone,
+      this.old,
       this.quyen,
       this.createdAt,
       this.updatedAt});
@@ -27,6 +31,8 @@ class Users {
         password = json['password'],
         status = json['status'],
         avatar = json['avatar'],
+        phone = json['phone'],
+        old = json['old'],
         quyen = json['Quyen'],
         createdAt = json['created_at'],
         updatedAt = json['updated_at'];

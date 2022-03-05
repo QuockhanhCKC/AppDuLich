@@ -40,7 +40,6 @@ Route::get('/User/{id}/Post',[PostController::class,'show_Post']);
 Route::post('/User/login',[Usercontroller::class,'login']);
 Route::post('/User/register',[Usercontroller::class,'store']);
 Route::post('/User/refresh_token',[Usercontroller::class,'refreshtoken']);
-Route::post('/User/update',[Usercontroller::class,'update_image']);
 
 Route::put('/User/update_user/{id}',[Usercontroller::class,'update_user']);
 Route::resource('/Khuvuc',KhuvucController::class);

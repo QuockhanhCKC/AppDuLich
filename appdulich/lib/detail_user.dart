@@ -8,33 +8,51 @@ import 'package:image_picker/image_picker.dart';
 
 // ignore: camel_case_types
 class detailuser extends StatefulWidget {
-  final int? id;
-  const detailuser({Key? key, required this.id}) : super(key: key);
+  final Users user;
+  const detailuser({Key? key, required this.user}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return detailuserstate(id: this.id);
+    return detailuserstate(users: this.user);
   }
 }
 
 class detailuserstate extends State<detailuser> {
-  final int? id;
-  detailuserstate({required this.id});
-  File? image;
-  final _picker = ImagePicker();
-  FuturecheckImage() async {
-    final pickerfile =
-        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
-    if (pickerfile != null) {
-       image = File(pickerfile.path);
-      setState(() {
-       
-      });
-    }
-  }
-  
+  final Users users;
+  detailuserstate({required this.users});
+  TextEditingController name = TextEditingController();
+  TextEditingController old = TextEditingController();
+  TextEditingController phone = TextEditingController();
 
+  void _BindingContact() {
+    setState(() {});
+    name.text = users.name!;
+    old.text = users.old!;
+    phone.text = users.phone!;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _BindingContact();
+  }
+
+  File? _image = null;
+  final _picker = ImagePicker();
+  TextEditingController noidung = TextEditingController();
+  late String Diadanhname = "Chọn Địa Danh";
+  Future getImage() async {
+    final image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+    _image = File(image.path);
+    setState(() {});
+  }
+
+  void uploadImage(File img) async {
+    UserProvider.fetchUser_update(users.id,img.path, name.text, old.text, phone.text)
+        .then((value) => Navigator.pop(context));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +63,7 @@ class detailuserstate extends State<detailuser> {
         title: Text('Thông tin cá Nhân'),
       ),
       body: FutureBuilder<Users>(
-        future: UserProvider.fecthusersById(id),
+        future: UserProvider.fecthusersById(users.id),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(
@@ -53,31 +71,38 @@ class detailuserstate extends State<detailuser> {
             );
           } else if (snapshot.hasData) {
             Users users = snapshot.data!;
+
             return ListView(
               children: [
                 Stack(alignment: Alignment.bottomCenter, children: [
                   Container(
-                    padding: EdgeInsets.all(5),
-                    height: 130,
-                    width: 130,
-                    child: users.avatar != null
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(10000.0),
-                            child: CachedNetworkImage(
-                              imageUrl: '${users.avatar}',
-                              height: 50,
-                            ))
-                        : CircleAvatar(
-                            child: Text(
-                              users.name!.substring(0, 1).toUpperCase(),
-                              style: TextStyle(fontSize: 50),
-                            ),
-                          ),
-                  ),
+                      padding: EdgeInsets.all(5),
+                      height: 130,
+                      width: 130,
+                      child: _image == null
+                          ? users.avatar != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(10000.0),
+                                  child: CachedNetworkImage(
+                                    imageUrl: '${users.avatar}',
+                                    height: 50,
+                                  ))
+                              : CircleAvatar(
+                                  child: Text(
+                                    users.name!.substring(0, 1).toUpperCase(),
+                                    style: TextStyle(fontSize: 50),
+                                  ),
+                                )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(10000.0),
+                              child: Image.file(
+                                _image!,
+                                height: 50,
+                              ))),
                   Align(
                       alignment: Alignment.bottomCenter,
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: getImage,
                         icon: Icon(Icons.camera_alt),
                       ))
                 ]),
@@ -100,12 +125,15 @@ class detailuserstate extends State<detailuser> {
                           ),
                         ),
                         TextField(
+                          controller: name,
                           decoration: InputDecoration(labelText: 'Tên'),
                         ),
                         TextField(
+                          controller: phone,
                           decoration: InputDecoration(labelText: 'sdt'),
                         ),
                         TextField(
+                          controller: old,
                           decoration: InputDecoration(labelText: 'Tuổi'),
                         ),
                         Row(
@@ -114,7 +142,10 @@ class detailuserstate extends State<detailuser> {
                             Padding(
                               padding: EdgeInsets.all(10),
                               child: OutlinedButton(
-                                onPressed: () {},
+                                onPressed: () =>{
+                                  if(_image!=null)
+                                  uploadImage(_image!)
+                                },
                                 style: OutlinedButton.styleFrom(
                                   backgroundColor: Colors.black87,
                                 ),

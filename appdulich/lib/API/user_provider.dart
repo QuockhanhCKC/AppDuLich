@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
-
+import 'package:http_parser/http_parser.dart';
 import 'package:appdulich/API/User_object.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:http/http.dart' as http;
 
 class UserProvider {
@@ -23,8 +23,8 @@ class UserProvider {
     return Users.fromJson(jsonDecode(response.body));
   }
 
-  static Future<Users?> fetchuser_register(String name,
-      String email, String password) async {
+  static Future<Users?> fetchuser_register(
+      String name, String email, String password) async {
     final response =
         await http.post(Uri.parse('http://10.0.2.2:8000/api/User/register'),
             //headers: {"Content-Type": "application/json"},
@@ -42,8 +42,31 @@ class UserProvider {
             body: ({'email': email, 'password': password}));
     if (response.statusCode == 200) {
       return Users.fromJson(jsonDecode(response.body));
-    }
-    throw Exception('Failed');
+    } else
+      throw Exception('Failed');
+  }
+
+  static Future<Users?> fetchUser_update(
+    int? id,
+    String img,
+    String name,
+    String old,
+    String phone,
+  ) async {
+    // lay ten image
+
+    var request = new http.MultipartRequest(
+        "PUT", Uri.parse('http://10.0.2.2:8000/api/User/update_user/$id'))
+      ..fields['name'] = name
+      ..fields['old'] = old
+      ..fields['phone'] = phone
+      ..files.add(await http.MultipartFile.fromPath('image', img,
+          contentType: MediaType('image', 'jpg')));
+    request.send().then((response) {
+      if (response.statusCode == 200)
+        print("Uploaded!");
+      else
+        return print("Fail!");
+    });
   }
 }
-

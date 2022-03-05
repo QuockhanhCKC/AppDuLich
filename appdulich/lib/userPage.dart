@@ -98,7 +98,7 @@ class UserState extends State<Userpage> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => detailuser(
-                                            id: id,
+                                            user: users,
                                           ),
                                         ));
                                   },
@@ -146,8 +146,8 @@ class UserState extends State<Userpage> {
                                                               MaterialPageRoute(
                                                                 builder: (context) =>
                                                                     DetailpostPage(
-                                                                        id: post[index]
-                                                                            .id),
+                                                                        id: post[index].id
+                                                                            ),
                                                               ));
                                                         },
                                                       ),

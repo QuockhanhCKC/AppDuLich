@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:appdulich/API/Post_object.dart';
 
+import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 
 class PostProvider {
@@ -33,15 +35,23 @@ class PostProvider {
         await http.get(Uri.parse('http://10.0.2.2:8000/api/User/$id/Post'));
     return parsePost(response.body);
   }
-    static Future<Post?> fetchuser_create(String noidung,
-      int? id, int? idDiadanh) async {
-    final response =
-        await http.post(Uri.parse('http://10.0.2.2:8000/api/User/register'),
-            //headers: {"Content-Type": "application/json"},
-            body: ({}));
-    if (response.statusCode == 200) {
-      return Post.fromJson(jsonDecode(response.body));
-    }
-    throw Exception('Failed');
+
+  static Future<Post?> fetchPost_create(
+      String noidung, String img, int? id, int? idDiadanh) async {
+    // lay ten image
+
+    var request = new http.MultipartRequest(
+        "POST", Uri.parse('http://10.0.2.2:8000/api/Post'))
+      ..fields['noidung'] = noidung
+      ..fields['iduser'] = id.toString()
+      ..fields['idDiadanh'] = idDiadanh.toString()
+      ..files.add(await http.MultipartFile.fromPath('image', img,
+          contentType: MediaType('image', 'jpg')));
+    request.send().then((response) {
+      if (response.statusCode == 200) print("Uploaded!");
+      else return print("Fail!");
+    });
+   
+    
   }
 }

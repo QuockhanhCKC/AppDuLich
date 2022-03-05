@@ -80,6 +80,7 @@ class LoginState extends State<LoginPage> {
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 labelText: 'Mật Khẩu'),
+                                obscureText: true,
                           ),
                         ),
                         Container(

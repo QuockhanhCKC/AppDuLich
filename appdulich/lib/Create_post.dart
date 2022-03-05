@@ -25,6 +25,7 @@ class _CreatePostState extends State<CreatePost> {
   File? _image;
   final _picker = ImagePicker();
   TextEditingController noidung = TextEditingController();
+  late String Diadanhname = "Chọn Địa Danh";
   Future getImage() async {
     final image = await _picker.pickImage(source: ImageSource.gallery);
     if (image == null) return;
@@ -33,11 +34,51 @@ class _CreatePostState extends State<CreatePost> {
   }
 
   void uploadImage(File img) async {
-    // PostProvider.fetchuser_create(noidung.text, img, id,idDiadanh)
+    PostProvider.fetchPost_create(noidung.text, img.path, id, idDiadanh)
+        .then((value) {
+      return Navigator.pop(context);
+    });
   }
   // Option 2
 
-  late String _selectedLocation;
+  Widget setupAlertDialoadContainer() {
+    return Container(
+      height: 300.0, // Change as per your requirement
+      width: 300.0, // Change as per your requirement
+      child: FutureBuilder<List<Sites>>(
+        future: SitesProvider.fecthSites(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Error'),
+            );
+          } else if (snapshot.hasData) {
+            List<Sites> sites = snapshot.data!;
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: sites.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  title: Text(sites[index].name.toString()),
+                  onTap: () {
+                    setState(() {
+                      idDiadanh = sites[index].id!;
+                      Diadanhname = sites[index].name!;
+                    });
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +89,14 @@ class _CreatePostState extends State<CreatePost> {
           'Tạo Bài Viết',
           style: TextStyle(color: Colors.black),
         ),
-        actions: [MaterialButton(onPressed: () {}, child: Text('Đăng Bài'))],
+        actions: [
+          MaterialButton(
+              onPressed: () {
+                if (idDiadanh != null && _image != null) uploadImage(_image!);
+                //Navigator.pop(context);
+              },
+              child: Text('Đăng Bài'))
+        ],
       ),
       body: FutureBuilder<Users>(
         future: UserProvider.fecthusersById(id),
@@ -83,13 +131,32 @@ class _CreatePostState extends State<CreatePost> {
                       subtitle: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Chọn Địa Danh'),
-                          MaterialButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Đây Là Đâu',
-                              style: TextStyle(color: Colors.amber[800]),
+                          Text(Diadanhname.toString()),
+                          Align(
+                            child: MaterialButton(
+                              onPressed: () {
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text('Địa Danh'),
+                                    content: setupAlertDialoadContainer(),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: const Text('Cancel'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Đây Là Đâu',
+                                style: TextStyle(color: Colors.amber[800]),
+                              ),
                             ),
+                            alignment: Alignment.topRight,
                           )
                         ],
                       ),
@@ -97,6 +164,7 @@ class _CreatePostState extends State<CreatePost> {
                   ),
                   Container(
                     child: TextField(
+                      controller: noidung,
                       decoration: InputDecoration(
                         labelText: 'Bạn Đang Nghỉ Gì?',
                         border: InputBorder.none,

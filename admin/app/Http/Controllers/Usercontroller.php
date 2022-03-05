@@ -154,29 +154,20 @@ class Usercontroller extends Controller
         $user->name=$request->name;
         $user->old=$request->old;
         $user->phone=$request->phone;
-        $image =$request->file('avatar');
-        if($request ->hasFile('avatar')){
-            $new =rand().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('uploads/images'),$new);
-        $user->avatar='http://192.168.1.8:8000/uploads/images/'.$new;
-       
-        }
         $user->save();
-        return response()->json([
-            'code'=>200,
-           'data'=> $user,
-        ],200);
-        }
-        return response()->json([
-            
-           'mess'=>"lỗi ",
-        ],400);
-    }
-    public function update_image(Request $request)
-    {
        
-        return  response()->json('image null');
+            return response()->json([
+                'code'=>200,
+            'data'=> $user,
+            ],200);
+        }
+            return response()->json([
+                
+            'mess'=>"lỗi ",
+            ],400);
+        
     }
+   
     /**
      * Remove the specified resource from storage.
      *

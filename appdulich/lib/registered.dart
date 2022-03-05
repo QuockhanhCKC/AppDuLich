@@ -16,7 +16,7 @@ class RegisteredPage extends StatefulWidget {
 }
 
 class registeredState extends State<RegisteredPage> {
-   final TextEditingController name = TextEditingController();
+  final TextEditingController name = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController check = TextEditingController();
@@ -70,9 +70,12 @@ class registeredState extends State<RegisteredPage> {
                           child: TextField(
                             controller: name,
                             decoration: InputDecoration(
-                                border: InputBorder.none, labelText: 'Tên Người Dùng'),
+                                border: InputBorder.none,
+                                labelText: 'Tên Người Dùng'),
                           ),
                         ),
+                        Padding(padding: EdgeInsets.all(15)),
+
                         Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
@@ -95,6 +98,7 @@ class registeredState extends State<RegisteredPage> {
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 labelText: 'Mật Khẩu'),
+                            obscureText: true,
                           ),
                         ),
                         Padding(padding: EdgeInsets.all(15)),
@@ -108,6 +112,7 @@ class registeredState extends State<RegisteredPage> {
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 labelText: 'Nhập Lại Mật Khẩu'),
+                            obscureText: true,
                           ),
                         ),
                         Container(
@@ -135,8 +140,8 @@ class registeredState extends State<RegisteredPage> {
                                     ),
                                   );
                                 } else {
-                                  await UserProvider.fetchuser_register(name.text,
-                                          email.text, password.text)
+                                  await UserProvider.fetchuser_register(
+                                          name.text, email.text, password.text)
                                       .then((value) {
                                     setState(() {
                                       Navigator.push(
